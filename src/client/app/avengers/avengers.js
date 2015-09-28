@@ -1,27 +1,3 @@
-// module app.avengers {
-//     'use strict';
-
-//     interface IAvengersScope {
-//         avengers: IAvenger[];
-//         title: string;
-//         getAvengers: () => void;
-//     }
-
-//     class AvengersController implements IAvengersScope{
-//         avengers: IAvenger[];
-//         title: string;
-
-//         static $inject = ['dataservice', 'logger'];
-//         constructor(dataservice: app.core.dataservice) {
-
-//         }
-//     }
-// }
-
-
-
-
-
 (function() {
     'use strict';
 
