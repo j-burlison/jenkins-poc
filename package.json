@@ -24,6 +24,7 @@
     "express": "^4.9.3",
     "method-override": "^1.0.0",
     "morgan": "^1.1.1",
+    "protractor": "^2.3.0",
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
