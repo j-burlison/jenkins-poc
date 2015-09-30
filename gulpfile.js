@@ -15,33 +15,34 @@ var env = plug.util.env;
 var log = plug.util.log;
 var port = process.env.PORT || 7203;
 
-// // {var protractor = require('gulp-protractor').protractor;
-// //
-// // // Start a standalone server
-// // var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
-// //
-// // // Download and update the selenium driver
-// // var webdriver_update = require('gulp-protractor').webdriver_update;
-// //
-// // // Downloads the selenium webdriver
-// // gulp.task('webdriver_update', webdriver_update);
-// //
-// // // Start the standalone selenium server
-// // // NOTE: This is not needed if you reference the
-// // // seleniumServerJar in your protractor.conf.js
-// // gulp.task('webdriver_standalone', webdriver_standalone);
-// //
-// // // Setting up the test task
-// // gulp.task('protractor', function(cb) {
-// //     gulp
-// //       .src(['./src/test/*.js'])
-// //       .pipe(protractor({
-// //         configFile: './protractor.conf.js',
-// //         args: ['--baseUrl', 'http://localhost:7203']
-// //     })).on('error', function(e) {
-// //         console.log(e)
-// //     }).on('end', cb);
-// // });}
+var gp = require('gulp-protractor');
+var protractor = gp.protractor;
+
+// Start a standalone server
+var webdriver_standalone = gp.webdriver_standalone;
+
+// Download and update the selenium driver
+var webdriver_update = gp.webdriver_update;
+
+// Downloads the selenium webdriver
+gulp.task('webdriver_update', webdriver_update);
+
+// Start the standalone selenium server
+// NOTE: This is not needed if you reference the
+// seleniumServerJar in your protractor.conf.js
+gulp.task('webdriver_standalone', webdriver_standalone);
+
+// Setting up the test task
+gulp.task('protractor', ['webdriver_standalone', 'serve-dev'], function(cb) {
+    gulp
+      .src(['./test/*.js'])
+      .pipe(protractor({
+        configFile: './test/protractor.conf.js',
+        args: ['--baseUrl', 'http://localhost:7203']
+    })).on('error', function(e) {
+        console.log(e)
+    }).on('end', cb);
+});
 // // var angularProtractor = require('gulp-angular-protractor');
 // //
 // // gulp.task('protractor', function(cb) {
@@ -64,14 +65,6 @@ var port = process.env.PORT || 7203;
 // // webdriver-manager start
 // // gulp serve-dev
 // // protractor protractor.conf.js
-//
-// poc: https://github.com/j-burlison/jenkins-poc.git
-// sdc_test_2: git@git.us.feedhenry.com:ea-sandbox/sdc_test_2-Cloud-App.git
-// stash: ssh://git@stash.ea.com:7999/ett-mobile/sandbox-ionic.git
-// test_4: git@git.us.feedhenry.com:ea-sandbox/sdc_test_4-Cloud-App.git
-//
-// bower gulp gulp-cli protractor mocha webdriver-manager
-//
 //
 // npm -v
 // node -v
