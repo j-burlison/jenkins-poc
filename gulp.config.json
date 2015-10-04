@@ -3,7 +3,7 @@
   "server": "./src/server/",
   "api": "/api",
   "data": "/../../data/",
-  "test": "./src/client/test/",
+  "test": "./src/client/test/unit",
   "html": "./src/client/**/*.html",
   "htmltemplates": "./src/client/app/**/*.html",
   "vendorjs": [
@@ -32,7 +32,7 @@
     "!./src/client/app/**/*-spaghetti.js"
   ],
   "specs": [
-    "./src/client/test/specs/*.spec.js"
+    "./src/client/test/unit/specs/*.spec.js"
   ],
   "nodejs": [
     "./src/server/**/*.js"

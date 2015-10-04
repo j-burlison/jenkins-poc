@@ -18,47 +18,25 @@ var port = process.env.PORT || 7203;
 var gp = require('gulp-protractor');
 var protractor = gp.protractor;
 
-// Start a standalone server
-var webdriver_standalone = gp.webdriver_standalone;
-
 // Download and update the selenium driver
 var webdriver_update = gp.webdriver_update;
 
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-// Start the standalone selenium server
-// NOTE: This is not needed if you reference the
-// seleniumServerJar in your protractor.conf.js
-gulp.task('webdriver_standalone', webdriver_standalone);
-
 // Setting up the test task
-gulp.task('protractor', ['webdriver_standalone', 'serve-dev'], function(cb) {
+gulp.task('protractor', ['serve-dev', 'webdriver_update'], function(cb) {
     gulp
-      .src(['./test/*.js'])
+      .src(['./src/client/test/e2e/*.js'])
       .pipe(protractor({
-        configFile: './test/protractor.conf.js',
+        configFile: './protractor.conf.js',
         args: ['--baseUrl', 'http://localhost:7203']
     })).on('error', function(e) {
         console.log(e)
     }).on('end', cb);
 });
-// // var angularProtractor = require('gulp-angular-protractor');
-// //
-// // gulp.task('protractor', function(cb) {
-// //   gulp
-// //     .src(['./src/test/*.js'])
-// //     .pipe(angularProtractor({
-// //           'configFile': 'protractor.config.js',
-// //           'args': ['--baseUrl', 'http://localhost:7203'],
-// //           'autoStartStopServer': true,
-// //           'debug': true
-// //       }))
-// //       .on('error', function(e) { throw e });
-// // });
-//
-//
-//
+
+
 // // npm install
 // // bower install
 // // webdriver-manager update
@@ -528,7 +506,7 @@ function startTests(singleRun, done) {
         savedEnv.PORT = 8888;
         child = fork('src/server/app.js', childProcessCompleted);
     } else {
-        excludeFiles.push('./src/client/test/midway/**/*.spec.js');
+        excludeFiles.push('./src/client/test/unit/midway/**/*.spec.js');
     }
 
     karma.start({

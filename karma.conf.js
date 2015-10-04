@@ -13,7 +13,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            './src/client/test/lib/bindPolyfill.js',
+            './src/client/test/unit/lib/bindPolyfill.js',
 
             './node_modules/ng-midway-tester/src/ngMidwayTester.js',
 
@@ -33,21 +33,21 @@ module.exports = function (config) {
             './src/client/app/**/*.js',
 
             /* MOCHA */
-            './src/client/test/lib/specHelper.js',
-            './src/client/test/lib/mockData.js',
+            './src/client/test/unit/lib/specHelper.js',
+            './src/client/test/unit/lib/mockData.js',
 
-            './src/client/test/basics/**/*.src.js',
-            './src/client/test/basics/**/*.spec.js',
+            './src/client/test/unit/basics/**/*.src.js',
+            './src/client/test/unit/basics/**/*.spec.js',
 
             // all specs ... comment out during early test training
-            './src/client/test/**/*.spec.js'
+            './src/client/test/unit/**/*.spec.js'
 
         ],
 
         // list of files to exclude
         exclude: [
             // Excluding midway tests for now; comment this line out when you want to run them
-            './src/client/test/midway/**/*.spec.js',
+            './src/client/test/unit/midway/**/*.spec.js',
             './src/client/app/**/*spaghetti.js'
         ],
 
