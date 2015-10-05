@@ -73,6 +73,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-safari-launcher": "^0.1.1",
     "karma-sinon": "^1.0.3",
+    "kp": "^1.1.0",
     "lodash": "^3.10.1",
     "merge-stream": "^0.1.5",
     "minimist": "^1.1.0",

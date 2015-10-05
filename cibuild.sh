@@ -1,11 +1,41 @@
-# start selenium
-./node_modules/protractor/bin/webdriver-manager start > /dev/null 2>&1 &
+# Script for Jenkins to run
+#
+# Author: EC
+# Date: 10/01/15
 
-# wait until selenium is up
-while ! curl http://localhost:4444/wd/hub/status &>/dev/null; do :; done
+echo ''
+echo '*********************'
+echo 'starting build script'
+echo '*********************'
+echo ''
+# get commiters name
+name=$(git show -s --pretty=%an)
+echo 'Jenkins Build #'$BUILD_NUMBER ' by ' $name
 
-# run the build
-gulp serve-dev & protractor protractor.conf.js
+# remove node_modules to catch any wildcard
+# version issues
+#rm -rf node_modules
+npm install
 
-# stop selenium
-curl -s -L http://localhost:4444/selenium-server/driver?cmd=shutDownSeleniumServer > /dev/null 2>&1
+# Run developers tests
+gulp test
+npm start & gulp protractor
+
+# Run custom build tasks
+
+
+# target FH git repo
+# git remote add fh git@git.us.feedhenry.com:ea-sandbox/Session-Service-Cloud-App.git
+# git checkout master
+# git add -A
+# git commit -am 'Jenkins Build'
+# git pull origin master
+# git pull fh master
+# git push fh master
+
+
+
+echo ''
+echo '*********************'
+echo 'finished build script'
+echo '*********************'

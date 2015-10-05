@@ -16,26 +16,29 @@ var log = plug.util.log;
 var port = process.env.PORT || 7203;
 
 var gp = require('gulp-protractor');
-var protractor = gp.protractor;
+var kp = require('kp');
 
 // Download and update the selenium driver
 var webdriver_update = gp.webdriver_update;
+gulp.task('webdriver-update', webdriver_update);
 
-// Downloads the selenium webdriver
-gulp.task('webdriver_update', webdriver_update);
-
-// Setting up the test task
-gulp.task('protractor', ['serve-dev', 'webdriver_update'], function(cb) {
+// Run Protractor Setup and Tests
+var protractor = gp.protractor;
+gulp.task('protractor', ['webdriver-update'], function(cb) {
     gulp
       .src(['./src/client/test/e2e/*.js'])
       .pipe(protractor({
         configFile: './protractor.conf.js',
-        args: ['--baseUrl', 'http://localhost:7203']
+        args: ['--baseUrl', 'http://localhost:7200']
     })).on('error', function(e) {
         console.log(e)
-    }).on('end', cb);
+    }).on('end', function(cb){
+      kp(7200);
+      return cb
+    });
 });
 
+//alias kill7203="fuser -k -n tcp 7203"
 
 // // npm install
 // // bower install
