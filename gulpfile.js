@@ -16,7 +16,11 @@ var log = plug.util.log;
 var port = process.env.PORT || 7203;
 
 var gp = require('gulp-protractor');
+var shell = require('gulp-shell');
 var kp = require('kp');
+
+var webdriver_standalone = gp.webdriver_standalone;
+gulp.task('webdriver-standalone', webdriver_standalone);
 
 // Download and update the selenium driver
 var webdriver_update = gp.webdriver_update;
@@ -24,19 +28,37 @@ gulp.task('webdriver-update', webdriver_update);
 
 // Run Protractor Setup and Tests
 var protractor = gp.protractor;
-gulp.task('protractor', ['webdriver-update'], function(cb) {
+gulp.task('protractor', function() {
     gulp
-      .src(['./src/client/test/e2e/*.js'])
+      .src(['./src/client/test/e2e/spec.js'])
       .pipe(protractor({
         configFile: './protractor.conf.js',
         args: ['--baseUrl', 'http://localhost:7200']
     })).on('error', function(e) {
         console.log(e)
-    }).on('end', function(cb){
+    }).on('end', function() {
+      kp(4444);
       kp(7200);
-      return cb
     });
 });
+
+gulp.task('e2e', ['webdriver-standalone', 'protractor']);
+
+gulp.task('shit', shell.task('lsof -i tcp:4444 | awk "NR!=1 {print $2}" | xargs kill'));
+
+// gulp.task('protractor', ['webdriver-update'], function(cb) {
+//     gulp
+//       .src(['./src/client/test/e2e/*.js'])
+//       .pipe(protractor({
+//         configFile: './protractor.conf.js'
+//     })).on('error', function(e) {
+//         console.log(e)
+//     }).on('end', function(cb){
+//       kp(7200);
+//       return cb
+//     });
+// });
+
 
 //alias kill7203="fuser -k -n tcp 7203"
 
