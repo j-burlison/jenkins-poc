@@ -1,6 +1,6 @@
 exports.config = {
   framework: 'mocha',
-  seleniumServerJar: '/opt/jenkins/lib/jobs/Protractor Test/workspace/node_modules/protractor/selenium/selenium-server-standalone-2.47.1.jar',
+  directConnect: true,
   specs: ['src/client/test/e2e/spec.js'],
   baseUrl: 'http://localhost:7200',
   chromeOnly: false,
