@@ -82,7 +82,7 @@
     "ng-midway-tester": "^2.0.5",
     "phantomjs": "^1.9.7-14",
     "plato": "^1.2.2",
-    "protractor": "^2.3.0",
+    "protractor": "^2.4.0",
     "q": "^1.0.1",
     "selenium-server-standalone-jar": "^2.47.1",
     "sinon": "^1.10.3",
