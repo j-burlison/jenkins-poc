@@ -37,7 +37,6 @@ gulp.task('protractor', function() {
     })).on('error', function(e) {
         console.log(e)
     }).on('end', function() {
-      kp(4444);
       kp(7200);
     });
 });
